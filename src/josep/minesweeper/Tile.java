@@ -39,4 +39,11 @@ public abstract class Tile {
         this.flagged = flagged;
     }
 
+    @Override
+    public String toString() {
+        if (!revealed) {
+            return "#";
+        }
+        return mine ? "X" : value + "";
+    }
 }
