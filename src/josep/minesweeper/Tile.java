@@ -1,6 +1,6 @@
 package josep.minesweeper;
 
-public abstract class Tile {
+public class Tile {
 
     private boolean mine;
     private boolean flagged;

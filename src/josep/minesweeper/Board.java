@@ -9,6 +9,15 @@ public class Board {
     public Board(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.tiles = new Tile[sizeY][sizeX];
+
+        //todo: remove
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                tiles[i][j] = new Tile(2);
+            }
+        }
+
     }
 
     public Tile[][] getTiles() {

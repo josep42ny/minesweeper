@@ -14,6 +14,8 @@ public class GameController {
 
     public void awake() {
 
+        view.drawBoard(board);
+
     }
 
     private void update() {
