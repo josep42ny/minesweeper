@@ -1,10 +1,27 @@
 package josep.minesweeper;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class InputHandler {
 
-    public char askForAction() {
-        String input = ask("[R]eveal | [F]lag | [Q]uit :");
-        return input.charAt(0);
+    private final Map<Character, PlayerAction> ACTION_MAP = new HashMap<>(Map.ofEntries(
+            Map.entry('r', PlayerAction.REVEAL),
+            Map.entry('f', PlayerAction.FLAG),
+            Map.entry('q', PlayerAction.QUIT)
+    ));
+
+
+    public PlayerAction askForAction() {
+
+        System.out.println("[R]eveal | [F]lag | [Q]uit :");
+        char actionKey = askForChar(ACTION_MAP.keySet());
+        System.out.print("\033[A\033[2K");
+        System.out.flush();
+
+        return ACTION_MAP.get(actionKey);
+
     }
 
     public int[] askForCoordinates() {
@@ -16,13 +33,12 @@ public class InputHandler {
 
     }
 
-    private String ask(String prompt) {
+    private String ask() {
         String input;
 
         do {
-            System.out.println(prompt);
             input = System.console().readLine();
-            System.out.print("\033[2F\033[K");
+            System.out.print("\033[A\033[2K");
             System.out.flush();
         } while (input.isEmpty());
 
@@ -31,9 +47,20 @@ public class InputHandler {
 
     private int askForInteger(String prompt) {
         while (true) {
+            System.out.println(prompt);
             try {
-                return Integer.parseInt(ask(prompt));
+                return Integer.parseInt(ask());
             } catch (NumberFormatException nfe) {
+            }
+        }
+    }
+
+    private char askForChar(Set<Character> validValues) {
+        while (true) {
+            String input = ask();
+
+            if (input.length() > 1 && validValues.contains(input.charAt(0))) {
+                return input.charAt(0);
             }
         }
     }

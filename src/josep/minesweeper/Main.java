@@ -7,8 +7,8 @@ public class Main {
         //GameController controller = new GameController();
         //controller.awake();
 
+        new View().drawBoard(new Board(8,8));
         new InputHandler().askForAction();
-        new InputHandler().askForCoordinates();
 
     }
 
