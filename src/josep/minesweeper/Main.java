@@ -8,7 +8,7 @@ public class Main {
         //controller.awake();
 
         new View().drawBoard(new Board(8,8));
-        new InputHandler().askForAction();
+        System.out.println(new InputHandler().askForAction());
 
     }
 

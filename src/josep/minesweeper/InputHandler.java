@@ -2,25 +2,18 @@ package josep.minesweeper;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class InputHandler {
-
-    private final Map<Character, PlayerAction> ACTION_MAP = new HashMap<>(Map.ofEntries(
-            Map.entry('r', PlayerAction.REVEAL),
-            Map.entry('f', PlayerAction.FLAG),
-            Map.entry('q', PlayerAction.QUIT)
-    ));
-
 
     public PlayerAction askForAction() {
 
         System.out.println("[R]eveal | [F]lag | [Q]uit :");
-        char actionKey = askForChar(ACTION_MAP.keySet());
+
+        PlayerAction action = askForChar();
+
         System.out.print("\033[A\033[2K");
         System.out.flush();
-
-        return ACTION_MAP.get(actionKey);
+        return action;
 
     }
 
@@ -55,13 +48,20 @@ public class InputHandler {
         }
     }
 
-    private char askForChar(Set<Character> validValues) {
+    private PlayerAction askForChar() {
         while (true) {
             String input = ask();
 
-            if (input.length() > 1 && validValues.contains(input.charAt(0))) {
-                return input.charAt(0);
+            if (input.length() != 1) {
+                continue;
             }
+
+            for (PlayerAction action : PlayerAction.values()) {
+                if (action.getKey() == input.charAt(0)) {
+                    return action;
+                }
+            }
+
         }
     }
 
