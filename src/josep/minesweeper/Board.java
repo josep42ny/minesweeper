@@ -14,7 +14,7 @@ public class Board {
         //todo: remove
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile(true);
+                tiles[i][j] = new Tile(false);
             }
         }
 
@@ -30,6 +30,14 @@ public class Board {
 
     public boolean reveal(int[] coords) {
         return tiles[coords[1]][coords[0]].reveal();
+    }
+
+    public void revealAll() {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                tile.reveal();
+            }
+        }
     }
 
 }

@@ -51,6 +51,12 @@ public class Tile {
         if (hidden) {
             return "#";
         }
-        return mine ? "X" : value + "";
+        if (mine) {
+            return "X";
+        }
+        if (value == 0) {
+            return "·";
+        }
+        return value + "";
     }
 }

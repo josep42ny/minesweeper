@@ -21,7 +21,11 @@ public class InputHandler {
 
         int[] out = new int[2];
         out[0] = askForInteger("Column:");
+        System.out.print("\033[A\033[2K");
+        System.out.flush();
         out[1] = askForInteger("Row:");
+        System.out.print("\033[A\033[2K");
+        System.out.flush();
         return out;
 
     }
