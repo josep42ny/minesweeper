@@ -8,11 +8,13 @@ public class Tile {
     private int value;
 
     public Tile(boolean isMine) {
-        this.mine = true;
+        this.mine = isMine;
+        this.hidden = true;
     }
 
     public Tile(int value) {
         this.value = value;
+        this.hidden = true;
     }
 
     public boolean isMine() {
@@ -37,6 +39,11 @@ public class Tile {
 
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
+    }
+
+    public boolean reveal() {
+        hidden = false;
+        return mine;
     }
 
     @Override

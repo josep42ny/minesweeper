@@ -36,7 +36,7 @@ public class GameController {
                     do {
                         coords = inputHandler.askForCoordinates();
                     } while (board.isTileHidden(coords));
-                    board.flag(coords);
+                    //board.flag(coords);
                     break;
                 case QUIT:
                     System.exit(0);
@@ -48,7 +48,7 @@ public class GameController {
     }
 
     private void gameover() {
-        board.revealAll();
+        //board.revealAll();
         System.exit(0);
     }
 

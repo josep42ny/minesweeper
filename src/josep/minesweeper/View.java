@@ -7,7 +7,7 @@ public class View {
 
         for (Tile[] tileRow : grid) {
             for (Tile tile : tileRow) {
-                System.out.print(" " + tile + " ");
+                System.out.print(tile + " ");
             }
             System.out.println();
         }
