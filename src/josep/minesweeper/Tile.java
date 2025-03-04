@@ -4,7 +4,7 @@ public class Tile {
 
     private boolean mine;
     private boolean flagged;
-    private boolean revealed;
+    private boolean hidden;
     private int value;
 
     public Tile(boolean isMine) {
@@ -23,16 +23,16 @@ public class Tile {
         return flagged;
     }
 
-    public boolean isRevealed() {
-        return revealed;
+    public boolean isHidden() {
+        return hidden;
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setRevealed(boolean revealed) {
-        this.revealed = revealed;
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public void setFlagged(boolean flagged) {
@@ -41,7 +41,7 @@ public class Tile {
 
     @Override
     public String toString() {
-        if (!revealed) {
+        if (hidden) {
             return "#";
         }
         return mine ? "X" : value + "";

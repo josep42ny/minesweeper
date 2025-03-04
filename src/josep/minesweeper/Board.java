@@ -25,7 +25,7 @@ public class Board {
     }
 
     public boolean isTileHidden(int[] coords) {
-        return tiles[coords[1]][coords[0]].isRevealed();
+        return tiles[coords[1]][coords[0]].isHidden();
     }
 
 }
