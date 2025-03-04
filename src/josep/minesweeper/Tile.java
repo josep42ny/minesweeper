@@ -41,8 +41,16 @@ public class Tile {
         this.flagged = flagged;
     }
 
+    public void armMine() {
+        this.mine = true;
+    }
+
+    public void incrementValue() {
+        this.value++;
+    }
+
     public boolean reveal() {
-        hidden = false;
+        this.hidden = false;
         return mine;
     }
 

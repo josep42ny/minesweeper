@@ -18,6 +18,12 @@ public class Board {
             }
         }
 
+        tiles[4][4].armMine();
+        tiles[4][5].armMine();
+        tiles[3][3].armMine();
+
+        setNumbers();
+
     }
 
     public Tile[][] getTiles() {
@@ -36,6 +42,29 @@ public class Board {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 tile.reveal();
+            }
+        }
+    }
+
+    private void setNumbers() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMine()) {
+                    incrementNeighbours(i, j);
+                }
+            }
+        }
+    }
+
+    private void incrementNeighbours(int x, int y) {
+        int startX = Math.max(x - 1, 0);
+        int endX = Math.min(x + 1, tiles[0].length - 1);
+        int startY = Math.max(y - 1, 0);
+        int endY = Math.min(y + 1, tiles.length - 1);
+
+        for (int i = startX; i <= endX; i++) {
+            for (int j = startY; j <= endY; j++) {
+                tiles[i][j].incrementValue();
             }
         }
     }
