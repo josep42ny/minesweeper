@@ -26,7 +26,7 @@ public class GameController {
                 case REVEAL:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (board.isTileRevealed(coords));
+                    } while (board.isTileHidden(coords));
                     boolean mine = board.reveal(coords);
                     if (mine) {
                         gameover();
@@ -35,7 +35,7 @@ public class GameController {
                 case FLAG:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (board.isTileRevealed(coords));
+                    } while (board.isTileHidden(coords));
                     board.flag(coords);
                     break;
                 case QUIT:
