@@ -35,7 +35,30 @@ public class Board {
     }
 
     public boolean reveal(int[] coords) {
-        return tiles[coords[1]][coords[0]].reveal();
+        Tile tile = tiles[coords[1]][coords[0]];
+        boolean mine = tile.reveal();
+        if (tile.getValue() == 0) {
+            floodReveal(coords[0], coords[1]);
+        }
+        return mine;
+    }
+
+    private void floodReveal(int x, int y) {
+
+        int startX = Math.max(x - 1, 0);
+        int endX = Math.min(x + 1, tiles[0].length - 1);
+        int startY = Math.max(y - 1, 0);
+        int endY = Math.min(y + 1, tiles.length - 1);
+
+        for (int i = startY; i <= endY; i++) {
+            for (int j = startX; j <= endX; j++) {
+                if ((x == j && y == i) || !tiles[i][j].isHidden()) continue;
+                tiles[i][j].reveal();
+                if (tiles[i][j].getValue() == 0) {
+                    floodReveal(j, i);
+                }
+            }
+        }
     }
 
     public void revealAll() {
