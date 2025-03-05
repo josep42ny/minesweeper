@@ -57,16 +57,28 @@ public class Board {
     }
 
     private void incrementNeighbours(int x, int y) {
+        Tile[] neighbours = getNeighbours(x, y);
+
+        for (Tile tile : neighbours) {
+            tile.incrementValue();
+        }
+    }
+
+    private Tile[] getNeighbours(int x, int y) {
+        Tile[] out = new Tile[9];
         int startX = Math.max(x - 1, 0);
         int endX = Math.min(x + 1, tiles[0].length - 1);
         int startY = Math.max(y - 1, 0);
         int endY = Math.min(y + 1, tiles.length - 1);
-
+        int counter = 0;
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
-                tiles[i][j].incrementValue();
+                out[counter] = tiles[i][j];
+                counter++;
             }
         }
+
+        return out;
     }
 
 }
