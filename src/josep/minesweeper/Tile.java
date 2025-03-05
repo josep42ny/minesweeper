@@ -54,13 +54,24 @@ public class Tile {
         return mine;
     }
 
+    public void flag() {
+        this.flagged = !this.flagged;
+    }
+
+    public void setFlagged() {
+        this.flagged = true;
+    }
+
     @Override
     public String toString() {
+        if (flagged) {
+            return "!";
+        }
         if (hidden) {
             return "#";
         }
         if (mine) {
-            return "X";
+            return "x";
         }
         if (value == 0) {
             return "·";

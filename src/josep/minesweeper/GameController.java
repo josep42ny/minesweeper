@@ -31,6 +31,10 @@ public class GameController {
                     if (mine) {
                         gameover();
                     }
+                    if (board.onlyMinesLeft()) {
+                        board.flagAll();
+                        gameover();
+                    }
                     break;
                 case FLAG:
                     do {

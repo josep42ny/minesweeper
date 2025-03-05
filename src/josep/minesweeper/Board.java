@@ -104,4 +104,25 @@ public class Board {
         return out;
     }
 
+    public boolean onlyMinesLeft() {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (!tile.isMine() && tile.isHidden()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void flagAll() {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.isHidden()) {
+                    tile.setFlagged();
+                }
+            }
+        }
+    }
+
 }
