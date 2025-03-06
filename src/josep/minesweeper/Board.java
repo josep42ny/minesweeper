@@ -133,4 +133,11 @@ public class Board {
         return tiles[coords[1]][coords[0]].isFlagged();
     }
 
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
 }
