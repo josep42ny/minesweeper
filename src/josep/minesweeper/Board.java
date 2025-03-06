@@ -1,10 +1,15 @@
 package josep.minesweeper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Board {
 
     private int sizeX;
     private int sizeY;
     private Tile[][] tiles;
+    private final Random random = new Random();
 
     public Board(int sizeX, int sizeY) {
         this.sizeX = sizeX;
@@ -18,9 +23,17 @@ public class Board {
             }
         }
 
-        tiles[4][4].armMine();
-        tiles[4][5].armMine();
-        tiles[3][3].armMine();
+        int ranX;
+        int ranY;
+        int mines = 10;
+
+        for (int j = 0; j < mines; j++) {
+            do {
+                ranX = random.nextInt(sizeX - 1);
+                ranY = random.nextInt(sizeY - 1);
+            } while (tiles[ranY][ranX].isMine());
+            tiles[ranY][ranX].armMine();
+        }
 
         setNumbers();
 
@@ -70,10 +83,10 @@ public class Board {
     }
 
     private void setNumbers() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j].isMine()) {
-                    incrementNeighbours(i, j);
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                if (tiles[y][x].isMine()) {
+                    incrementNeighbours(x, y);
                 }
             }
         }
@@ -87,21 +100,21 @@ public class Board {
         }
     }
 
-    private Tile[] getNeighbours(int x, int y) {
-        Tile[] out = new Tile[9];
-        int startX = Math.max(x - 1, 0);
-        int endX = Math.min(x + 1, tiles[0].length - 1);
-        int startY = Math.max(y - 1, 0);
-        int endY = Math.min(y + 1, tiles.length - 1);
-        int counter = 0;
-        for (int i = startX; i <= endX; i++) {
-            for (int j = startY; j <= endY; j++) {
-                out[counter] = tiles[i][j];
-                counter++;
+    private Tile[] getNeighbours(int inX, int inY) {
+        List<Tile> out = new ArrayList<>();
+
+        int startX = Math.max(inX - 1, 0);
+        int endX = Math.min(inX + 1, tiles[0].length - 1);
+        int startY = Math.max(inY - 1, 0);
+        int endY = Math.min(inY + 1, tiles.length - 1);
+
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
+                out.add(tiles[y][x]);
             }
         }
 
-        return out;
+        return out.toArray(new Tile[0]);
     }
 
     public boolean onlyMinesLeft() {
