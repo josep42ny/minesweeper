@@ -43,7 +43,7 @@ public class GameController {
                         board.flag(coords);
                     break;
                 case QUIT:
-                    System.exit(0);
+                    gameover();
                 default:
             }
 
@@ -54,6 +54,7 @@ public class GameController {
     private void gameover() {
         board.revealAll();
         view.drawBoard(board);
+        System.out.println();
         System.exit(0);
     }
 

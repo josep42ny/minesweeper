@@ -65,17 +65,17 @@ public class Tile {
     @Override
     public String toString() {
         if (flagged) {
-            return "!";
+            return "\033[1;32m" + "△"  + "\033[0m";
         }
         if (hidden) {
-            return "#";
+            return "\033[1;37m" + "#"  + "\033[0m";
         }
         if (mine) {
-            return "x";
+            return "\033[1;31m" + "▲"  + "\033[0m";
         }
         if (value == 0) {
-            return "·";
+            return "\033[1;37m" + "·"  + "\033[0m";
         }
-        return value + "";
+        return "\033[1;37m" + value + "\033[0m";
     }
 }
