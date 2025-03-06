@@ -52,7 +52,7 @@ public class Board {
 
         for (int i = startY; i <= endY; i++) {
             for (int j = startX; j <= endX; j++) {
-                if ((x == j && y == i) || !tiles[i][j].isHidden()) continue;
+                if ((x == j && y == i) || !tiles[i][j].isHidden() || tiles[i][j].isFlagged()) continue;
                 tiles[i][j].reveal();
                 if (tiles[i][j].getValue() == 0) {
                     floodReveal(j, i);
@@ -123,6 +123,14 @@ public class Board {
                 }
             }
         }
+    }
+
+    public void flag(int[] coords) {
+        tiles[coords[1]][coords[0]].flag();
+    }
+
+    public boolean isTileFlagged(int[] coords) {
+        return tiles[coords[1]][coords[0]].isFlagged();
     }
 
 }
