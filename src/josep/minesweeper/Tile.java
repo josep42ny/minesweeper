@@ -6,6 +6,14 @@ public class Tile {
     private boolean flagged;
     private boolean hidden;
     private int value;
+    private int posY;
+    private int posX;
+
+    public Tile(int y, int x) {
+        this.hidden = true;
+        this.posY = y;
+        this.posX = x;
+    }
 
     public boolean isMine() {
         return mine;
@@ -50,6 +58,14 @@ public class Tile {
 
     public void setFlagged() {
         this.flagged = true;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public int getPosX() {
+        return posX;
     }
 
     @Override

@@ -22,9 +22,9 @@ public class Board {
     }
 
     private void fillBoard() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile();
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                tiles[y][x] = new Tile(y, x);
             }
         }
     }
@@ -46,7 +46,7 @@ public class Board {
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x].isMine()) {
-                    incrementNeighbours(x, y);
+                    incrementNeighbours(y, x);
                 }
             }
         }
@@ -60,32 +60,27 @@ public class Board {
         return tiles[coords[1]][coords[0]].isHidden();
     }
 
-    public boolean reveal(int[] coords) {
-        Tile tile = tiles[coords[1]][coords[0]];
+    public boolean reveal(int y, int x) {
+        Tile tile = tiles[y][x];
         boolean mine = tile.reveal();
 
-        if (tile.getValue() == 0) {
-            floodReveal(coords[0], coords[1]);
+        if (tile.getValue() != 0 || tile.isMine()) {
+            return mine;
+        }
+
+        Tile[] neigbours = getNeighbours(y, x);
+        for (Tile neighbour : neigbours) {
+            if (!neighbour.isHidden() || neighbour.isFlagged()) {
+                continue;
+            }
+            if (neighbour.getValue() == 0) {
+                reveal(neighbour.getPosY(), neighbour.getPosX());
+            } else {
+                neighbour.reveal();
+            }
         }
 
         return mine;
-    }
-
-    private void floodReveal(int x, int y) {
-        int startX = Math.max(x - 1, 0);
-        int endX = Math.min(x + 1, tiles[0].length - 1);
-        int startY = Math.max(y - 1, 0);
-        int endY = Math.min(y + 1, tiles.length - 1);
-
-        for (int i = startY; i <= endY; i++) {
-            for (int j = startX; j <= endX; j++) {
-                if ((x == j && y == i) || !tiles[i][j].isHidden() || tiles[i][j].isFlagged()) continue;
-                tiles[i][j].reveal();
-                if (tiles[i][j].getValue() == 0) {
-                    floodReveal(j, i);
-                }
-            }
-        }
     }
 
     public void revealAll() {
@@ -96,15 +91,15 @@ public class Board {
         }
     }
 
-    private void incrementNeighbours(int x, int y) {
-        Tile[] neighbours = getNeighbours(x, y);
+    private void incrementNeighbours(int y, int x) {
+        Tile[] neighbours = getNeighbours(y, x);
 
         for (Tile tile : neighbours) {
             tile.incrementValue();
         }
     }
 
-    private Tile[] getNeighbours(int inX, int inY) {
+    private Tile[] getNeighbours(int inY, int inX) {
         List<Tile> out = new ArrayList<>();
         int startX = Math.max(inX - 1, 0);
         int endX = Math.min(inX + 1, tiles[0].length - 1);
@@ -113,6 +108,9 @@ public class Board {
 
         for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
+                if (inX == x && inY == y) {
+                    continue;
+                }
                 out.add(tiles[y][x]);
             }
         }
@@ -154,7 +152,4 @@ public class Board {
         return sizeX;
     }
 
-    public int getSizeY() {
-        return sizeY;
-    }
 }

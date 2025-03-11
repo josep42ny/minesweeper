@@ -9,7 +9,7 @@ public class GameController {
     public void awake() {
 
         this.view = new View();
-        this.board = new Board(5,10, 10);
+        this.board = new Board(5, 10, 1);
         this.inputHandler = new InputHandler();
         update();
 
@@ -27,7 +27,7 @@ public class GameController {
                     do {
                         coords = inputHandler.askForCoordinates();
                     } while (!board.isTileHidden(coords) || board.isTileFlagged(coords));
-                    boolean mine = board.reveal(coords);
+                    boolean mine = board.reveal(coords[0], coords[1]);
                     if (mine) {
                         gameover();
                     }
