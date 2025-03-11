@@ -11,32 +11,45 @@ public class Board {
     private Tile[][] tiles;
     private final Random random = new Random();
 
-    public Board(int sizeX, int sizeY) {
-        this.sizeX = sizeX;
+    public Board(int sizeY, int sizeX, int mineAmount) {
         this.sizeY = sizeY;
+        this.sizeX = sizeX;
         this.tiles = new Tile[sizeY][sizeX];
 
-        //todo: remove
+        fillBoard();
+        armMines(mineAmount);
+        setNumbers();
+    }
+
+    private void fillBoard() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile(false);
+                tiles[i][j] = new Tile();
             }
         }
+    }
 
+    private void armMines(int mines) {
         int ranX;
         int ranY;
-        int mines = 10;
 
-        for (int j = 0; j < mines; j++) {
+        for (int i = 0; i < mines; i++) {
             do {
                 ranX = random.nextInt(sizeX - 1);
                 ranY = random.nextInt(sizeY - 1);
             } while (tiles[ranY][ranX].isMine());
             tiles[ranY][ranX].armMine();
         }
+    }
 
-        setNumbers();
-
+    private void setNumbers() {
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                if (tiles[y][x].isMine()) {
+                    incrementNeighbours(x, y);
+                }
+            }
+        }
     }
 
     public Tile[][] getTiles() {
@@ -50,14 +63,15 @@ public class Board {
     public boolean reveal(int[] coords) {
         Tile tile = tiles[coords[1]][coords[0]];
         boolean mine = tile.reveal();
+
         if (tile.getValue() == 0) {
             floodReveal(coords[0], coords[1]);
         }
+
         return mine;
     }
 
     private void floodReveal(int x, int y) {
-
         int startX = Math.max(x - 1, 0);
         int endX = Math.min(x + 1, tiles[0].length - 1);
         int startY = Math.max(y - 1, 0);
@@ -82,16 +96,6 @@ public class Board {
         }
     }
 
-    private void setNumbers() {
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                if (tiles[y][x].isMine()) {
-                    incrementNeighbours(x, y);
-                }
-            }
-        }
-    }
-
     private void incrementNeighbours(int x, int y) {
         Tile[] neighbours = getNeighbours(x, y);
 
@@ -102,7 +106,6 @@ public class Board {
 
     private Tile[] getNeighbours(int inX, int inY) {
         List<Tile> out = new ArrayList<>();
-
         int startX = Math.max(inX - 1, 0);
         int endX = Math.min(inX + 1, tiles[0].length - 1);
         int startY = Math.max(inY - 1, 0);
@@ -125,6 +128,7 @@ public class Board {
                 }
             }
         }
+
         return true;
     }
 

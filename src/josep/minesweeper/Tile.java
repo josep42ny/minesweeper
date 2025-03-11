@@ -7,16 +7,6 @@ public class Tile {
     private boolean hidden;
     private int value;
 
-    public Tile(boolean isMine) {
-        this.mine = isMine;
-        this.hidden = true;
-    }
-
-    public Tile(int value) {
-        this.value = value;
-        this.hidden = true;
-    }
-
     public boolean isMine() {
         return mine;
     }

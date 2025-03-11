@@ -1,8 +1,5 @@
 package josep.minesweeper;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class InputHandler {
 
     public PlayerAction askForAction() {

@@ -9,7 +9,7 @@ public class GameController {
     public void awake() {
 
         this.view = new View();
-        this.board = new Board(8,8);
+        this.board = new Board(5,10, 10);
         this.inputHandler = new InputHandler();
         update();
 
