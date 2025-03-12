@@ -9,7 +9,7 @@ public class GameController {
     public void awake() {
 
         this.view = new View();
-        this.board = new Board(5, 10, 1);
+        this.board = new Board(8, 8, 10);
         this.inputHandler = new InputHandler();
         update();
 
@@ -23,11 +23,12 @@ public class GameController {
             PlayerAction action = inputHandler.askForAction();
             int[] coords;
             switch (action) {
+
                 case REVEAL:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (!board.isTileHidden(coords) || board.isTileFlagged(coords));
-                    boolean mine = board.reveal(coords[0], coords[1]);
+                    } while (board.isTileShown(coords) || board.isTileFlagged(coords));
+                    boolean mine = board.reveal(coords[1], coords[0]);
                     if (mine) {
                         gameover();
                     }
@@ -36,12 +37,14 @@ public class GameController {
                         gameover();
                     }
                     break;
+
                 case FLAG:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (!board.isTileHidden(coords));
-                        board.flag(coords);
+                    } while (board.isTileShown(coords));
+                    board.flag(coords);
                     break;
+
                 case QUIT:
                     gameover();
                 default:

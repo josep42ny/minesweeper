@@ -56,8 +56,8 @@ public class Board {
         return tiles;
     }
 
-    public boolean isTileHidden(int[] coords) {
-        return tiles[coords[1]][coords[0]].isHidden();
+    public boolean isTileShown(int[] coords) {
+        return !tiles[coords[1]][coords[0]].isHidden();
     }
 
     public boolean reveal(int y, int x) {
