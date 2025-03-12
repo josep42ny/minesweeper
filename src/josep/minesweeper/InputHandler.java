@@ -8,7 +8,7 @@ public class InputHandler {
 
         PlayerAction action = askForChar();
 
-        System.out.print(Ansi.CLEAR_LINE);
+        System.out.print(Ansi.getCode(Ansi.CLEAR_LINE));
         System.out.flush();
         return action;
 
@@ -18,10 +18,10 @@ public class InputHandler {
 
         int[] out = new int[2];
         out[0] = askForInteger("Column:");
-        System.out.print(Ansi.CLEAR_LINE);
+        System.out.print(Ansi.getCode(Ansi.CLEAR_LINE));
         System.out.flush();
         out[1] = askForInteger("Row:");
-        System.out.print(Ansi.CLEAR_LINE);
+        System.out.print(Ansi.getCode(Ansi.CLEAR_LINE));
         System.out.flush();
         return out;
 
@@ -32,7 +32,7 @@ public class InputHandler {
 
         do {
             input = System.console().readLine();
-            System.out.print(Ansi.CLEAR_LINE);
+            System.out.print(Ansi.getCode(Ansi.CLEAR_LINE));
             System.out.flush();
         } while (input.isEmpty());
 
@@ -45,6 +45,8 @@ public class InputHandler {
             try {
                 return Integer.parseInt(ask());
             } catch (NumberFormatException nfe) {
+                System.out.print(Ansi.getCode(Ansi.CLEAR_LINE));
+                System.out.flush();
             }
         }
     }

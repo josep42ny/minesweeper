@@ -91,6 +91,10 @@ public class Board {
         }
     }
 
+    public boolean tileNotExists(int[] coords) {
+        return coords[1] >= tiles.length || coords[0] >= tiles[coords[1]].length;
+    }
+
     private void incrementNeighbours(int y, int x) {
         Tile[] neighbours = getNeighbours(y, x);
 

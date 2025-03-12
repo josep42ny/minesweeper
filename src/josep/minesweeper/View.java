@@ -5,7 +5,7 @@ import java.io.IOException;
 public class View {
 
     public void drawBoard(Board board) {
-        System.out.print(Ansi.CLEAR_CONSOLE);
+        System.out.print(Ansi.getCode(Ansi.CLEAR_CONSOLE));
         System.out.flush();
         Tile[][] grid = board.getTiles();
         System.out.println();
@@ -18,7 +18,7 @@ public class View {
             for (Tile tile : tileRow) {
                 System.out.print(tile + " ");
             }
-            System.out.print(Ansi.paint(Ansi.BOLD_WHITE, " " + row));
+            System.out.println(Ansi.paint(Ansi.BOLD_WHITE, " " + row));
             row++;
         }
         System.out.print("\n");

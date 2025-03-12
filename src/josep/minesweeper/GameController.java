@@ -27,34 +27,38 @@ public class GameController {
                 case REVEAL:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (board.isTileShown(coords) || board.isTileFlagged(coords));
+                    } while (board.tileNotExists(coords)
+                            || board.isTileShown(coords)
+                            || board.isTileFlagged(coords));
                     boolean mine = board.reveal(coords[1], coords[0]);
                     if (mine) {
-                        gameover();
+                        gameOver();
                     }
                     if (board.onlyMinesLeft()) {
                         board.flagAll();
-                        gameover();
+                        gameOver();
                     }
                     break;
 
                 case FLAG:
                     do {
                         coords = inputHandler.askForCoordinates();
-                    } while (board.isTileShown(coords));
+                    } while (board.tileNotExists(coords)
+                            || board.isTileShown(coords));
                     board.flag(coords);
                     break;
 
                 case QUIT:
-                    gameover();
+                    gameOver();
                 default:
             }
 
         }
 
+
     }
 
-    private void gameover() {
+    private void gameOver() {
         board.revealAll();
         view.drawBoard(board);
         System.out.println();

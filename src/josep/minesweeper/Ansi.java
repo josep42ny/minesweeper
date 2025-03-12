@@ -16,7 +16,7 @@ public enum Ansi {
         this.code = code;
     }
 
-    private static String getCode(Ansi ansi) {
+    public static String getCode(Ansi ansi) {
         return ansi.code;
     }
 
