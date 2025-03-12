@@ -71,17 +71,17 @@ public class Tile {
     @Override
     public String toString() {
         if (flagged) {
-            return "\033[1;32m" + "△"  + "\033[0m";
+            return Ansi.paint(Ansi.GREEN, "△");
         }
         if (hidden) {
-            return "\033[1;37m" + "#"  + "\033[0m";
+            return Ansi.paint(Ansi.WHITE, "#");
         }
         if (mine) {
-            return "\033[1;31m" + "▲"  + "\033[0m";
+            return Ansi.paint(Ansi.RED, "▲");
         }
         if (value == 0) {
-            return "\033[1;37m" + "·"  + "\033[0m";
+            return Ansi.paint(Ansi.WHITE, "·");
         }
-        return "\033[1;37m" + value + "\033[0m";
+        return Ansi.paint(Ansi.BOLD_WHITE, value);
     }
 }
